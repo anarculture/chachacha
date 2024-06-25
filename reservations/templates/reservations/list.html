@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Reservaciones</title>
+</head>
+<body>
+    <h1>Reservaciones</h1>
+    <a href="{% url 'reservation_create' %}">Crear nueva reservación</a>
+    <ul>
+        {% for reservation in reservations %}
+            <li>
+                <a href="{% url 'reservation_detail' reservation.pk %}">{{ reservation.guest.username }} - {{ reservation.room.number }}</a>
+                <a href="{% url 'reservation_update' reservation.pk %}">Editar</a>
+                <a href="{% url 'reservation_delete' reservation.pk %}">Eliminar</a>
+            </li>
+        {% endfor %}
+    </ul>
+</body>
+</html>

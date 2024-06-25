@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Habitaciones</title>
+</head>
+<body>
+    <h1>Habitaciones</h1>
+    <a href="{% url 'room_create' %}">Crear nueva habitación</a>
+    <ul>
+        {% for room in rooms %}
+            <li>
+                <a href="{% url 'room_detail' room.pk %}">{{ room.numero }}</a>
+                <a href="{% url 'room_update' room.pk %}">Editar</a>
+                <a href="{% url 'room_delete' room.pk %}">Eliminar</a>
+            </li>
+        {% endfor %}
+    </ul>
+</body>
+</html>

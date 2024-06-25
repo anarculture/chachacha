@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>Detalle del Huésped</title>
+</head>
+
+<body>
+  <h1>Detalle del Huésped</h1>
+  <p>Nombre: {{ guest.first_name }}</p>
+  <p>Apellido: {{ guest.last_name }}</p>
+  <p>Número de Habitación: {{ guest.room_number }}</p>
+  <p>Número de Teléfono: {{ guest.phone_number }}</p>
+  <p>Correo Electrónico: {{ guest.email }}</p>
+  <p>Número de Identificación: {{ guest.id_number }}</p>
+  <p>ID de Reservación: {{ guest.reservation_id }}</p>
+  <p>Usuario: {{ guest.user }}</p>
+  <a href="{% url 'guest_update' guest.pk %}">Editar</a>
+  <a href="{% url 'guest_delete' guest.pk %}">Eliminar</a>
+</body>
+
+</html>

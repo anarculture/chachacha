@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Detalle de la Habitación</title>
+</head>
+<body>
+    <h1>Detalle de la Habitación</h1>
+    <p>Número: {{ room.numero }}</p>
+    <p>Tipo de habitación: {{ room.tipo_habitacion }}</p>
+    <p>Está disponible: {{ room.esta_disponible }}</p>
+    <a href="{% url 'room_update' room.pk %}">Editar</a>
+    <a href="{% url 'room_delete' room.pk %}">Eliminar</a>
+</body>
+</html>

@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Detalle del Reporte</title>
+</head>
+<body>
+    <h1>Detalle del Reporte</h1>
+    <p>Título: {{ report.title }}</p>
+    <p>Contenido: {{ report.content }}</p>
+    <a href="{% url 'report_update' report.pk %}">Editar</a>
+    <a href="{% url 'report_delete' report.pk %}">Eliminar</a>
+</body>
+</html>

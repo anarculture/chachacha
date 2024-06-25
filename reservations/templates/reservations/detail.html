@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Detalle de Reservación</title>
+</head>
+<body>
+    <h1>Detalle de Reservación</h1>
+    <p>Huésped: {{ reservation.guest.username }}</p>
+    <p>Habitación: {{ reservation.room.number }}</p>
+    <p>Fecha de entrada: {{ reservation.check_in_date }}</p>
+    <p>Fecha de salida: {{ reservation.check_out_date }}</p>
+    <p>Registrado: {{ reservation.checked_in }}</p>
+    <a href="{% url 'reservation_update' reservation.pk %}">Editar</a>
+    <a href="{% url 'reservation_delete' reservation.pk %}">Eliminar</a>
+</body>
+</html>

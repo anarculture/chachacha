@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Detalle del Usuario</title>
+</head>
+<body>
+    <h1>Detalle del Usuario</h1>
+    <p>Nombre de usuario: {{ user.username }}</p>
+    <p>Correo electrónico: {{ user.email }}</p>
+    <p>Es empleado: {{ user.is_staff }}</p>
+    <p>Es administrador: {{ user.is_admin }}</p>
+    <p>Es huésped: {{ user.is_guest }}</p>
+    <a href="{% url 'user_update' user.pk %}">Editar</a>
+    <a href="{% url 'user_delete' user.pk %}">Eliminar</a>
+</body>
+</html>

@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Detalle de Factura</title>
+</head>
+<body>
+    <h1>Detalle de Factura</h1>
+    <p>Reservación: {{ invoice.reservation.guest.username }} - {{ invoice.reservation.room.number }}</p>
+    <p>Monto: {{ invoice.amount }}</p>
+    <p>Pagado: {{ invoice.paid }}</p>
+    <a href="{% url 'invoice_update' invoice.pk %}">Editar</a>
+    <a href="{% url 'invoice_delete' invoice.pk %}">Eliminar</a>
+</body>
+</html>
