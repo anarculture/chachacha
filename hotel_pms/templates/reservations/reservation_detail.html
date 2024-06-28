@@ -2,11 +2,10 @@
 {% block title %}Reservation Detail{% endblock %}
 {% block content %}
 <h1>Reservation Detail</h1>
-<p><strong>Guest:</strong> {{ reservation.guest }}</p>
-<p><strong>Room:</strong> {{ reservation.room }}</p>
+<p><strong>Guest:</strong> {{ reservation.guest.username }}</p>
+<p><strong>Room:</strong> {{ reservation.room.number }}</p>
 <p><strong>Check-in Date:</strong> {{ reservation.check_in_date }}</p>
 <p><strong>Check-out Date:</strong> {{ reservation.check_out_date }}</p>
-<p><strong>Created At:</strong> {{ reservation.created_at }}</p>
 <a href="{% url 'reservation_update' reservation.pk %}" class="btn btn-warning">Edit</a>
 <a href="{% url 'reservation_delete' reservation.pk %}" class="btn btn-danger">Delete</a>
 <a href="{% url 'reservation_list' %}" class="btn btn-secondary">Back to list</a>

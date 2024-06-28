@@ -1,14 +1,12 @@
 from django import forms
-from .models import Reservation
+from .models import Reservation, Guest
 
-class ReservacionForm(forms.ModelForm):
+class GuestForm(forms.ModelForm):
+    class Meta:
+        model = Guest
+        fields = ['first_name', 'last_name', 'phone_number', 'email', 'id_number']
+
+class ReservationForm(forms.ModelForm):
     class Meta:
         model = Reservation
-        fields = ['guest', 'room', 'check_in_date', 'check_out_date', 'checked_in']
-        labels = {
-            'guest': 'Huésped',
-            'room': 'Habitación',
-            'check_in_date': 'Fecha de entrada',
-            'check_out_date': 'Fecha de salida',
-            'checked_in': 'Registrado',
-        }
+        fields = ['guest', 'room', 'check_in_date', 'check_out_date']
