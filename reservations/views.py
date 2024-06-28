@@ -12,6 +12,7 @@ def reservation_detail(request, pk):
     return render(request, 'reservations/reservation_detail.html', {'reservation': reservation})
 
 def reservation_create(request):
+    print("View Executed: reservation_create")  # Debug line
     GuestFormSet = modelformset_factory(Guest, form=GuestForm, extra=1)
     if request.method == 'POST':
         reservation_form = ReservationForm(request.POST)
@@ -22,13 +23,23 @@ def reservation_create(request):
             reservation.guest = new_guest[0]
             reservation.save()
             return redirect('reservation_list')
+        else:
+            print("Reservation Form Errors:", reservation_form.errors)
+            print("Guest Formset Errors:", guest_formset.errors)
     else:
         reservation_form = ReservationForm()
         guest_formset = GuestFormSet(queryset=Guest.objects.none())
-    return render(request, 'reservations/reservation_form.html', {
+
+    print("Reservation Form:", reservation_form)  # Debug line
+    print("Guest Formset:", guest_formset)  # Debug line
+
+    context = {
         'reservation_form': reservation_form,
         'guest_formset': guest_formset
-    })
+    }
+    print("Context:", context)  # Debug line
+
+    return render(request, 'reservations/reservation_form.html', context)
 
 def reservation_update(request, pk):
     reservation = get_object_or_404(Reservation, pk=pk)
