@@ -1,0 +1,7 @@
+{% extends 'base.html' %}
+{% block title %}No Available Rooms{% endblock %}
+{% block content %}
+<h1>No Available Rooms</h1>
+<p>Sorry, there are no available rooms at the moment. Please try again later.</p>
+<a href="{% url 'reservation_list' %}" class="btn btn-secondary">Back to Reservations</a>
+{% endblock %}

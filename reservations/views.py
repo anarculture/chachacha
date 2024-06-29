@@ -1,7 +1,30 @@
-from django.shortcuts import render, get_object_or_404, redirect
-from .models import Guest, Reservation
-from .forms import GuestForm, ReservationForm
+from django.shortcuts import render, redirect
+from .models import Reservation, Guest
+from rooms.models import Room
+from .forms import ReservationForm, GuestForm
 from django.forms import modelformset_factory
+
+def reservation_create(request):
+    GuestFormSet = modelformset_factory(Guest, form=GuestForm, extra=1)
+    if request.method == 'POST':
+        reservation_form = ReservationForm(request.POST)
+        guest_formset = GuestFormSet(request.POST, queryset=Guest.objects.none())
+        if reservation_form.is_valid() and guest_formset.is_valid():
+            new_guest = guest_formset.save()[0]  # Assume one guest per reservation
+            reservation = reservation_form.save(commit=False)
+            reservation.guest = new_guest
+            reservation.reservation_id = uuid.uuid4()
+            reservation.save()
+            return redirect('reservation_list')
+    else:
+        reservation_form = ReservationForm()
+        guest_formset = GuestFormSet(queryset=Guest.objects.none())
+
+    context = {
+        'reservation_form': reservation_form,
+        'guest_formset': guest_formset
+    }
+    return render(request, 'reservations/reservation_form.html', context)
 
 def reservation_list(request):
     reservations = Reservation.objects.all()
@@ -10,36 +33,6 @@ def reservation_list(request):
 def reservation_detail(request, pk):
     reservation = get_object_or_404(Reservation, pk=pk)
     return render(request, 'reservations/reservation_detail.html', {'reservation': reservation})
-
-def reservation_create(request):
-    print("View Executed: reservation_create")  # Debug line
-    GuestFormSet = modelformset_factory(Guest, form=GuestForm, extra=1)
-    if request.method == 'POST':
-        reservation_form = ReservationForm(request.POST)
-        guest_formset = GuestFormSet(request.POST, queryset=Guest.objects.none())
-        if reservation_form.is_valid() and guest_formset.is_valid():
-            new_guest = guest_formset.save()
-            reservation = reservation_form.save(commit=False)
-            reservation.guest = new_guest[0]
-            reservation.save()
-            return redirect('reservation_list')
-        else:
-            print("Reservation Form Errors:", reservation_form.errors)
-            print("Guest Formset Errors:", guest_formset.errors)
-    else:
-        reservation_form = ReservationForm()
-        guest_formset = GuestFormSet(queryset=Guest.objects.none())
-
-    print("Reservation Form:", reservation_form)  # Debug line
-    print("Guest Formset:", guest_formset)  # Debug line
-
-    context = {
-        'reservation_form': reservation_form,
-        'guest_formset': guest_formset
-    }
-    print("Context:", context)  # Debug line
-
-    return render(request, 'reservations/reservation_form.html', context)
 
 def reservation_update(request, pk):
     reservation = get_object_or_404(Reservation, pk=pk)
